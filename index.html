@@ -19,42 +19,81 @@
     <button id="btn-remove">Remove</button>
     </div>
 
-    
+   
 
     <script>
     var btnCreate = document.getElementById('btn-create');
     var btnRemove = document.getElementById('btn-remove');
+    btnRemove.style. visibility = 'hidden';
     var container = document.querySelector('.container');
      
     
-        btnCreate.addEventListener('click', createEl);
+    btnCreate.addEventListener('click', createEl);
   
      var obj = {
          n : 0
      }   
     
     function createEl(){
+      
+
      for(i=0; i<=1; i++){
          obj.n= obj.n + i;
          
      }
-     var txtfield = document.createElement('input');
+  
+
+    var txtfield = document.createElement('input');
          txtfield.setAttribute('id', `id${obj.n}`);
          txtfield.setAttribute('type', 'text');
          txtfield.setAttribute('placeholder', 'Enter your service');
-        //  txtfield.style.display= 'block';
          container.appendChild(txtfield);
-     console.log(txtfield);
+    
+         console.log(txtfield);
+    
+   
+    var txtarea = document.createElement('textarea');
+         txtarea.setAttribute('id', `txtarea-id${obj.n}`);
+         txtarea.setAttribute('type', 'textarea');
+         txtarea.setAttribute('placeholder', 'Enter your service details');
+         container.appendChild(txtarea);
+      
+         console.log(txtarea);
+         
+
+   
+    var fileUp = document.createElement('input');
+         fileUp.setAttribute('id', `upload-id${obj.n}`);
+         fileUp.setAttribute('type', 'file');
+         fileUp.setAttribute('value', 'upload image');
+         container.appendChild(fileUp);
+      
+         console.log(fileUp);
+
+         btnRemove.style. visibility = 'visible';
+        
     }
 
     
    btnRemove.addEventListener('click', removeField)
    function removeField(){
   var input_tags = container.getElementsByTagName('input');
-  
   container.removeChild(input_tags[(input_tags.length) - 1]);
-  console.log(container);
-}
+ 
+  
+  var txtarea_tags = container.getElementsByTagName('textarea');
+  container.removeChild(txtarea_tags[(txtarea_tags.length) - 1]);
+ 
+  
+  
+  var file_tags = container.getElementsByTagName('input');
+  container.removeChild(file_tags[(file_tags.length) - 1]);
+
+  if(input_tags.length === 0){
+    btnRemove.style. visibility = 'hidden';
+  }
+ 
+  }
      
     </script>
      
