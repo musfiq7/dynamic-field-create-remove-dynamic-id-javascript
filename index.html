@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-     
-
-    </style>
-<link rel="stylesheet" type="text/css" href="style.css">
+   
+    <link rel="stylesheet" type="text/css" href="style.css">
        
 </head>
 <body>
     <div class="container">
-    <h3>Create text field</h3>
-    <button id="btn-create">create</button>
-    <button id="btn-remove">Remove</button>
+    <h3>Add Service Field</h3>
+    <p>Maximum six fields can be added</p>
+    <button id="btn-create">Add Service</button>
+    <button id="btn-remove">Remove Service</button>
     </div>
 
    
@@ -24,25 +22,29 @@
     <script>
     var btnCreate = document.getElementById('btn-create');
     var btnRemove = document.getElementById('btn-remove');
-    btnRemove.style. visibility = 'hidden';
+   
+     btnRemove.setAttribute('disabled' , true); // remove button initially disable default 
     var container = document.querySelector('.container');
      
     
     btnCreate.addEventListener('click', createEl);
-  
+    
+      // here object is used to for loop for making consequence and unique id of fields 
      var obj = {
          n : 0
      }   
     
+
+    //create fields 
     function createEl(){
       
-
+     // here loop is used to consequence and unique id as to add in attribute 
      for(i=0; i<=1; i++){
          obj.n= obj.n + i;
          
      }
   
-
+    //create input field text
     var txtfield = document.createElement('input');
          txtfield.setAttribute('id', `id${obj.n}`);
          txtfield.setAttribute('type', 'text');
@@ -51,7 +53,7 @@
     
          console.log(txtfield);
     
-   
+      //create textarea 
     var txtarea = document.createElement('textarea');
          txtarea.setAttribute('id', `txtarea-id${obj.n}`);
          txtarea.setAttribute('type', 'textarea');
@@ -61,26 +63,36 @@
          console.log(txtarea);
          
 
-   
+    //create input type file for upload
     var fileUp = document.createElement('input');
          fileUp.setAttribute('id', `upload-id${obj.n}`);
          fileUp.setAttribute('type', 'file');
          fileUp.setAttribute('value', 'upload image');
          container.appendChild(fileUp);
-      
          console.log(fileUp);
+      
+         // disable create button after six fields creation
+          txtarea_tags = container.getElementsByTagName('textarea');
+          if(txtarea_tags.length > 5){
+            btnCreate.setAttribute('disabled', true);
+          }
 
-         btnRemove.style. visibility = 'visible';
-        
+         
+         // disable false remove button if there is minimum one field
+          if(txtarea_tags.length > 0){
+            btnRemove.removeAttribute('disabled');
+          }
+
     }
-
-    
-   btnRemove.addEventListener('click', removeField)
+           
+ // remove field           
+           
+btnRemove.addEventListener('click', removeField)
+          
    function removeField(){
   var input_tags = container.getElementsByTagName('input');
   container.removeChild(input_tags[(input_tags.length) - 1]);
- 
-  
+        
   var txtarea_tags = container.getElementsByTagName('textarea');
   container.removeChild(txtarea_tags[(txtarea_tags.length) - 1]);
  
@@ -89,18 +101,28 @@
   var file_tags = container.getElementsByTagName('input');
   container.removeChild(file_tags[(file_tags.length) - 1]);
 
+  // disable remove button if there is no field 
+  // disable false for create button if there is no field
+
   if(input_tags.length === 0){
-    btnRemove.style. visibility = 'hidden';
+    btnRemove.setAttribute('disabled' , true);
+    btnCreate.removeAttribute('disabled');
   }
  
   }
-     
+   
+ 
     </script>
+
+    
+</body>
+</html>
+ 
+  
      
-     <script src="script.js"></script>  
+     
+   
      
        
     
     
-</body>
-</html>
